@@ -1,0 +1,32 @@
+import cv2
+import numpy as np
+
+def merge_images(image1_path, image2_path, output_path, x, y, width, height):
+    # 画像1を読み込む
+    image1 = cv2.imread(image1_path)
+    # 画像2を読み込む
+    image2 = cv2.imread(image2_path)
+
+    # 画像2の赤い枠内の部分を切り取る
+    roi = image2[y:y+height, x:x+width]
+
+    # 画像1に切り取った部分を合成する
+    image1[y:y+height, x:x+width] = roi
+
+    # 合成された画像を保存する
+    cv2.imwrite(output_path, image1)
+
+# 画像1のパス
+image1_path = "画像1のパス"
+# 画像2のパス
+image2_path = "画像2のパス"
+# 合成する領域の座標とサイズ
+x = 100  # 赤い枠の左上のx座標
+y = 100  # 赤い枠の左上のy座標
+width = 200  # 赤い枠の幅
+height = 200  # 赤い枠の高さ
+# 出力画像のパス
+output_path = "出力画像のパス"
+
+# 画像の合成を実行
+merge_images(image1_path, image2_path, output_path, x, y, width, height)
